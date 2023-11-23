@@ -7,12 +7,14 @@ import UserList from './src/screens/UserList/UserList';
 import { Provider } from 'react-redux';
 import { store } from './src/store/store';
 import { UserForm } from './src/screens/UserList/UserForm/UserForm';
+import { ToastProvider } from 'react-native-toast-notifications'
 
 
   const Tab = createBottomTabNavigator();;
 
 export default function App() {
   return (
+    <ToastProvider>
     <Provider store={store}>
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Home">
@@ -21,6 +23,7 @@ export default function App() {
       </Tab.Navigator>
     </NavigationContainer>
     </Provider>
+    </ToastProvider>
   );
 }
 
