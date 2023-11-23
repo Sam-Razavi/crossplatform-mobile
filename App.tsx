@@ -3,34 +3,24 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';;
 import { Button } from '@rneui/base';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import UserList from './src/screens/UserList/UserList';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
+import { UserForm } from './src/screens/UserList/UserForm/UserForm';
 
-function HomeScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home!</Text>
-      </View>
-    );
-  }
-
-
-function SettingsScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
-      </View>
-    );
-  }
 
   const Tab = createBottomTabNavigator();;
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Home">
-        <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="UserList" component={UserList} options={{ title: 'User list'}} />
+        <Tab.Screen name="UserForm" component={UserForm}  />
       </Tab.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 
