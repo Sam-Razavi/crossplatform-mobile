@@ -1,16 +1,17 @@
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native"
 import { Button, Input } from '@rneui/themed';
 import { useCreateUserMutation } from "../../../store/api/UserApi";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useToast } from 'react-native-toast-notifications'
 
 export const UserForm = (props) => {
     const { navigation } = props
+    const lastNameRef = useRef(null)
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
 
-    const [createUser] = useCreateUserMutation()
+    const [createUser, { isLoading }] = useCreateUserMutation()
     const toast = useToast()
 
 
@@ -50,14 +51,38 @@ export const UserForm = (props) => {
 	}
 
     return (
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.parentContainer}>
         <View style={styles.container}>
             <Text>Create Your User</Text>
-            <Input value={firstName} onChangeText={(text) => setFirstName(text)} placeholder="First name"></Input>
-			<Input value={lastName} onChangeText={(text) => setLastName(text)} placeholder="Last name"></Input>
-            <Button title="Create User" onPress={() => handleSubmit()}></Button>
+            <Input
+            returnKeyType="next"
+            onSubmitEditing={() => lastNameRef.current.focus()}
+            blurOnSubmit={false}
+            value={firstName}
+            disabled = {isLoading}
+            onChangeText={(text) => setFirstName(text)}
+            placeholder="First name">
+
+            </Input>
+			<Input
+            ref={lastNameRef}
+            value={lastName}
+            disabled = {isLoading}
+            returnKeyType="send"
+            onSubmitEditing={() => handleSubmit()}
+            onChangeText={(text) => setLastName(text)}
+            placeholder="Last name">
+            </Input>
+            <Button
+            title="Create User"
+            loading={isLoading}
+            disabled= {isLoading}
+            onPress={() => handleSubmit()}>
+            </Button>
         </View>
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -65,7 +90,7 @@ const styles = StyleSheet.create({
     parentContainer:{
         flex: 1,
         backgroundColor: 'white',
-        margin: 36,
+        // margin: 36,
         borderColor: '#eee',
         borderWidth: 1,
         borderRadius: 16,
