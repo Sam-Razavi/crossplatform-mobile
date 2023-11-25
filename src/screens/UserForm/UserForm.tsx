@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native"
 import { Button, Input } from '@rneui/themed';
-import { useCreateUserMutation } from "../../../store/api/UserApi";
+import { useCreateUserMutation } from "../../store/api/UserApi";
 import { useRef, useState } from "react";
 import { useToast } from 'react-native-toast-notifications'
 
