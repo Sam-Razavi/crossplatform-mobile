@@ -1,5 +1,5 @@
 import { View,Text, ScrollView, FlatList } from "react-native"
-import { useGetUsersQuery } from "../../store/api/UserApi"
+import { useGetUsersQuery } from "../../store/api/UsersApi"
 import { ListItem } from '@rneui/themed';
 
 
