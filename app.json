@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Fejk Twitter",
-    "slug": "Fejk Twitter",
+    "slug": "fejk-twitter",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,13 +21,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.sam.sahbaeirazavi.fejktwitter"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-localization"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "17a75a05-a2fc-404a-a1f2-5a2a85edef3b"
+      }
+    }
   }
 }
