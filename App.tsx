@@ -11,6 +11,8 @@ import { Settings } from "./src/screens/Settings/Settings";
 import { UserForm } from "./src/screens/UserForm/UserForm";
 import { UserInfo } from "./src/screens/UserInfo/UserInfo";
 import UserList from "./src/screens/UserList/UserList";
+import PostForm from "./src/screens/PostForm/PostForm"; // Import PostForm
+import PostList from "./src/screens/PostList/PostList"; // Import PostList
 import { persistor, store } from "./src/store/store";
 
 const UserListStack = createNativeStackNavigator();
@@ -20,6 +22,7 @@ function UserListStackScreen() {
     <UserListStack.Navigator>
       <UserListStack.Screen name="UserList" component={UserList} />
       <UserListStack.Screen name="UserInfo" component={UserInfo} />
+      <UserListStack.Screen name="UserForm" component={UserForm} />
     </UserListStack.Navigator>
   );
 };
@@ -48,6 +51,8 @@ function NavigationWrapper() {
           />
         )}
         <Tab.Screen name="Settings" component={Settings} />
+        <Tab.Screen name="PostForm" component={PostForm} options={{ title: 'Create Post' }} />
+        <Tab.Screen name="PostList" component={PostList} options={{ title: 'Posts' }} /> 
       </Tab.Navigator>
     </NavigationContainer>
   );

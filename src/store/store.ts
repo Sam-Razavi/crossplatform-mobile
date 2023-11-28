@@ -4,32 +4,32 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { persistReducer, persistStore } from "redux-persist";
 
 import { usersApi } from "./api/UsersApi";
+import { postsApi } from "./api/PostsApi";
 import authSlice from "./slices/authSlice";
 import configSlice from "./slices/configSlice";
 import { initializeI18n } from "../../i18n";
 
-const middlewares = [usersApi.middleware];
+const middlewares = [usersApi.middleware, postsApi.middleware];
 
 if (process.env.NODE_ENV === `development`) {
   const { logger } = require(`redux-logger`);
-
   middlewares.push(logger);
 }
 
 const persistConfig = {
   key: "crossplatform-mobile-v1.0.0",
   storage: AsyncStorage,
-  whitelist: ["auth", "config"], // Lägg till fler delar av store som du vill spara här.
+  whitelist: ["auth", "config"],
 };
 
-const persistedReducer = persistReducer(
-  persistConfig,
-  combineReducers({
-    [usersApi.reducerPath]: usersApi.reducer,
-    auth: authSlice,
-    config: configSlice,
-  }),
-);
+const rootReducer = combineReducers({
+  [usersApi.reducerPath]: usersApi.reducer,
+  [postsApi.reducerPath]: postsApi.reducer,
+  auth: authSlice,
+  config: configSlice,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
@@ -49,5 +49,8 @@ export const persistor = persistStore(store, null, () => {
   const state = store.getState();
   initializeI18n(state.config.locale);
 });
+
+
+export type RootState = ReturnType<typeof store.getState>;
 
 setupListeners(store.dispatch);

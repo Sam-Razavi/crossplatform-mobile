@@ -7,6 +7,7 @@ import i18n from "../../../i18n";
 import { setLocale } from "../../store/slices/configSlice";
 
 export const Settings = () => {
+    console.log('Settings rendered');
   const locale = useSelector((state: any) => state.config.locale);
   const dispatch = useDispatch();
 
