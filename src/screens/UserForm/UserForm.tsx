@@ -63,7 +63,7 @@ export const UserForm = ({ route, navigation }) => {
           toast.show(error, { type: "danger" });
         });
     } else {
-      
+
       createUser({ user })
         .then(() => {
           navigation.navigate("UserList");
@@ -106,7 +106,7 @@ export const UserForm = ({ route, navigation }) => {
             placeholder="Last name"
           />
           <Button
-            title={route.params?.user ? t("updateUser") : t("createUser")}
+            title={route.params?.user ? t("Update User") : t("createUser")}
             disabled={isCreating || isUpdating}
             loading={isCreating || isUpdating}
             onPress={() => handleSubmit()}
